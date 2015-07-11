@@ -1,0 +1,65 @@
+{
+    "created": "2015-06-16T18:09:01.060460+00:00",
+    "html_url": "https://hypothes.is/a/AHrdvA_NTfqm6WjiMnm3ab",
+    "id": "AHrdvA_NTfqm6WjiMnm3ab",
+    "document": {
+        "title": "All Is Fair in Love and Twitter",
+        "link": [
+            {
+                "href": "http://www.nytimes.com/2013/10/13/magazine/all-is-fair-in-love-and-twitter.html?pagewanted=all&_r=0"
+            },
+            {
+                "href": "http://www.nytimes.com/2013/10/13/magazine/all-is-fair-in-love-and-twitter.html",
+                "type": "",
+                "rel": "canonical"
+            },
+            {
+                "href": "http://mobile.nytimes.com/2013/10/13/magazine/all-is-fair-in-love-and-twitter.html",
+                "type": "",
+                "rel": "alternate"
+            },
+            {
+                "href": "android-app://com.nytimes.android/nytimes/reader/id/100000002486480",
+                "type": "",
+                "rel": "alternate"
+            }
+        ]
+    },
+    "tags": [
+        "bad pitch",
+        "Silicon Valley"
+    ],
+    "target": [
+        {
+            "source": "http://www.nytimes.com/2013/10/13/magazine/all-is-fair-in-love-and-twitter.html?pagewanted=all&_r=0",
+            "pos": {
+                "top": 1240,
+                "height": 42
+            },
+            "selector": [
+                {
+                    "type": "RangeSelector",
+                    "startContainer": "/div[4]/div[2]/main[1]/article[1]/div[1]/p[4]",
+                    "endContainer": "/div[4]/div[2]/main[1]/article[1]/div[1]/p[4]",
+                    "startOffset": 319,
+                    "endOffset": 399
+                },
+                {
+                    "start": 1684,
+                    "end": 1764,
+                    "type": "TextPositionSelector"
+                },
+                {
+                    "type": "TextQuoteSelector",
+                    "prefix": "d 75 percent of start-ups fail.",
+                    "exact": "Usually it\u2019s not simply because the ideas are bad (although some certainly are),",
+                    "suffix": "but because of a multitude of o"
+                }
+            ]
+        }
+    ],
+    "text": "Like this one:\n\nhttps://www.youtube.com/watch?v=wyrFWbGiGOc",
+    "text_rendered": "<p>Like this one:</p>\n<p><a target=\"blank\" href=\"https://youtube.com/watch?v=wyrFWbGiGOc\">https://youtube.com/watch?v=wyrFWbGiGOc</a></p>",
+    "updated": "2015-06-16T18:17:03.328748+00:00",
+    "user": "acct:jane.doe@hypothes.is"
+}
