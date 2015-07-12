@@ -213,7 +213,8 @@ markdown {
 }
 
 .btn-clean:active {
-    color: #84131e
+    color: #84131e;
+	background-color: #eee;
 }
 
 .btn-icon {
@@ -349,7 +350,6 @@ body {
 
 #wrapper {
     height: 100%;
-    overflow-y: auto;
     position: relative;
     -webkit-overflow-scrolling: touch
 }
@@ -460,3 +460,25 @@ ol {
     padding-left: 4em;
     padding-right: 4em
 }
+
+.copy-pane {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	border-radius: 2px;
+	border: 1px solid #D3D3D3;
+	background: #FFF;
+	max-width: 300px;
+	padding: 10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	z-index: 1;
+	box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+	transition: 0.1s ease-in;
+	width: 350px;
+}
+
+.copy-pane-advice {
+	margin-top: 10px;
+}
+

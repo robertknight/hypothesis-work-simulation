@@ -2,6 +2,7 @@ import marked from 'marked';
 import React from 'react';
 import url from 'url';
 
+import CopyLinkPane from './CopyLinkPane';
 import {relativeDateString} from './util';
 
 export class TagList extends React.Component {
@@ -45,6 +46,14 @@ export class AnnotationBody extends React.Component {
 }
 
 export class Annotation extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			copyLinkPaneVisible: false
+		};
+	}
+
 	render() {
 		const annotation = this.props.annotation;
 		const annotatorLink = `https://hypothes.is/u/${annotation.user}`;
@@ -65,11 +74,21 @@ export class Annotation extends React.Component {
 			elidedTitle = elidedTitle.slice(0,MAX_TITLE_LENGTH) + "…";
 		}
 
+		let copyLinkPane: React.Component;
+		if (this.state.copyLinkPaneVisible) {
+			copyLinkPane =
+			  <CopyLinkPane link={`https://hypothes.is/a/${annotation.id}`}
+			                annotatorName={annotatorName}
+							annotatorLink={annotatorLink}
+							onDismiss={() => this.setState({copyLinkPaneVisible: false})}
+			  />;
+		}
+
 		return <article className="annotation thread-message">
 			{/* Header */}
 			<header className="annotation-header">
 				<span>
-					<a className="annotation-user" target="_blank" href={annotatorLink}>{annotatorName}</a>
+					<a className="annotation-user" href={annotatorLink}>{annotatorName}</a>
 					<span className="annotation-citation">
 						&nbsp;on “<a className="annotation-citation-link" href={contentLink.href}>{elidedTitle}</a>”
 						 <span className="annotation-citation-domain"> ({contentLink.hostname})</span>
@@ -95,9 +114,15 @@ export class Annotation extends React.Component {
 			<footer className="annotation-footer">
 				<div className="annotation-actions">
                   <button className="small btn-clean"><i className="h-icon-reply btn-icon"></i> Reply</button>
+                  <button className="small btn-clean" onClick={() => this._copyLink()}><i className="h-icon-share btn-icon"></i> Copy Link</button>
+				  {copyLinkPane}
 				</div>
 			</footer>
 		</article>;
+	}
+
+	_copyLink() {
+		this.setState({copyLinkPaneVisible: true});
 	}
 
 	_renderQuotes() {

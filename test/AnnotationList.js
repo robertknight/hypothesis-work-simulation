@@ -5,38 +5,10 @@ import * as path from 'path';
 import React from 'react';
 
 import {Annotation, AnnotationBody, TagList} from '../src/AnnotationList';
+import {findOne, findAll} from './test-util';
 
 const testDataPath = path.join(__dirname, '../data.json');
 const testData = JSON.parse(fs.readFileSync(testDataPath).toString());
-
-function findAll(renderTree: React.Component,
-                 testFunc: (component: React.Component) => boolean,
-                 matches: Array<React.Component> = []) {
-	if (testFunc(renderTree)) {
-		matches.push(renderTree);
-	}
-	if (renderTree.props && renderTree.props.children) {
-		if (Array.isArray(renderTree.props.children)) {
-			for (const child of renderTree.props.children) {
-				if (typeof child === 'object') {
-					findAll(child, testFunc, matches);
-				}
-			}
-		} else if (typeof renderTree.props.children === 'object') {
-			findAll(renderTree.props.children, testFunc, matches);
-		}
-	}
-	return matches;
-}
-
-function findOne(renderTree: React.Component,
-                 testFunc: (component: React.Component) => boolean) {
-	const matches = findAll(renderTree, testFunc);
-	if (matches.length !== 1) {
-		throw new Error(`Expected one match, found ${matches.length}`);
-	}
-	return matches[0];
-}
 
 describe('Annotation', () => {
 	const renderer = addons.TestUtils.createRenderer();
