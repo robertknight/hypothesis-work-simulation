@@ -39,7 +39,7 @@ export class AnnotationBody extends React.Component {
 		if (annotation.text_rendered) {
 			html = annotation.text_rendered;
 		} else if (annotation.text) {
-			html = marked(annotation.text);
+			html = marked(annotation.text, {sanitize: true});
 		}
 		return <div className="styled-text" dangerouslySetInnerHTML={{__html: html}}></div>
 	}
