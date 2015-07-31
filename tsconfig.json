@@ -1,0 +1,14 @@
+{
+	"compilerOptions" : {
+		"jsx" : "react",
+		"outDir" : "build",
+		"module" : "commonjs"
+	},
+	"files" : [
+		"src/AnnotationList.tsx",
+		"src/CopyLinkPane.tsx",
+		"src/Toolbar.tsx",
+		"src/app.tsx",
+		"src/util.ts"
+	]
+}

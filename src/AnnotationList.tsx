@@ -1,11 +1,15 @@
-import marked from 'marked';
-import React from 'react';
-import url from 'url';
+import * as marked from 'marked';
+import * as React from 'react';
+import * as url from 'url';
 
-import CopyLinkPane from './CopyLinkPane';
+import {CopyLinkPane, CopyLinkPaneProps} from './CopyLinkPane';
 import {relativeDateString} from './util';
 
-export class TagList extends React.Component {
+interface TagListProps {
+	tags: string[];
+}
+
+export class TagList extends React.Component<TagListProps,{}> {
 	render() {
 		const tagItems = this.props.tags.map(tag => {
 			const uriEscapedTag = encodeURIComponent(tag);
@@ -32,7 +36,14 @@ function annotatorNameFromAccount(account: string) {
 	}
 }
 
-export class AnnotationBody extends React.Component {
+interface AnnotationBodyProps {
+	annotation: {
+		text_rendered: string;
+		text: string;
+	}
+}
+
+export class AnnotationBody extends React.Component<AnnotationBodyProps,{}> {
 	render() {
 		const annotation = this.props.annotation;
 		let html: string;
@@ -45,7 +56,38 @@ export class AnnotationBody extends React.Component {
 	}
 }
 
-export class Annotation extends React.Component {
+export interface HypothesisAnnotationSelector {
+	type: string;
+	exact: string;
+}
+
+export interface HypothesisAnnotationTarget {
+	selector: Array<HypothesisAnnotationSelector>;
+}
+
+export interface HypothesisAnnotation {
+	id: string;
+	user: string;
+	tags: string[];
+	document: {
+		link: Array<{href:string}>;
+		title: string;
+	};
+	updated: number;
+	text_rendered: string;
+	text: string;
+	target: HypothesisAnnotationTarget[];
+}
+
+export interface AnnotationProps {
+	annotation: HypothesisAnnotation;
+}
+
+interface AnnotationState {
+	copyLinkPaneVisible: boolean;
+}
+
+export class Annotation extends React.Component<AnnotationProps,AnnotationState> {
 	constructor(props) {
 		super(props);
 
@@ -61,7 +103,7 @@ export class Annotation extends React.Component {
 		const links = annotation.document.link;
 		const updated = new Date(annotation.updated);
 
-		let contentLink: string;
+		let contentLink: url.Url;
 		if (links.length > 0) {
 			// use the default link. Depending on the device and context,
 			// it may be preferable to use one of the alternate links
@@ -74,7 +116,7 @@ export class Annotation extends React.Component {
 			elidedTitle = elidedTitle.slice(0,MAX_TITLE_LENGTH) + "…";
 		}
 
-		let copyLinkPane: React.Component;
+		let copyLinkPane: React.ReactElement<CopyLinkPaneProps>
 		if (this.state.copyLinkPaneVisible) {
 			copyLinkPane =
 			  <CopyLinkPane link={`https://hypothes.is/a/${annotation.id}`}
@@ -90,7 +132,7 @@ export class Annotation extends React.Component {
 				<span>
 					<a className="annotation-user" href={annotatorLink}>{annotatorName}</a>
 					<span className="annotation-citation">
-						&nbsp;on “<a className="annotation-citation-link" href={contentLink.href}>{elidedTitle}</a>”
+						 {'\u00a0'}on {'\u201c'}<a className="annotation-citation-link" href={contentLink.href}>{elidedTitle}</a>{'\u201d'}
 						 <span className="annotation-citation-domain"> ({contentLink.hostname})</span>
 					</span>
 				</span>
@@ -144,7 +186,11 @@ export class Annotation extends React.Component {
 	}
 }
 
-export default class AnnotationList extends React.Component {
+export interface AnnotationListProps {
+		annotations: HypothesisAnnotation[]
+}
+
+export class AnnotationList extends React.Component<AnnotationListProps,{}> {
 	render() {
 		let annotations = this.props.annotations.map(annotation =>
 			<li className="paper thread" key={annotation.id}>

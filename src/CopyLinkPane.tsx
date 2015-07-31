@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 export function attemptClipboardCopy(textField: HTMLInputElement) {
 	try {
@@ -22,7 +22,19 @@ export function attemptClipboardCopy(textField: HTMLInputElement) {
 	}
 }
 
-export default class CopyLinkPane extends React.Component {
+export interface CopyLinkPaneProps {
+	link: string;
+	annotatorLink: string;
+	annotatorName: string;
+	onDismiss: () => void;
+}
+
+interface CopyLinkPaneState {
+	autoClipboardCopySuccessful?: boolean;
+	initialDisplay?: boolean;
+}
+
+export class CopyLinkPane extends React.Component<CopyLinkPaneProps,CopyLinkPaneState> {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -32,7 +44,7 @@ export default class CopyLinkPane extends React.Component {
 	}
 
 	componentDidMount() {
-		const linkField = React.findDOMNode(this.refs['linkField']);
+		const linkField = React.findDOMNode(this.refs['linkField']) as HTMLInputElement;
 		this.setState({
 			autoClipboardCopySuccessful: attemptClipboardCopy(linkField)
 		});
@@ -44,7 +56,7 @@ export default class CopyLinkPane extends React.Component {
 		let copyAdvice;
 		if (this.state.autoClipboardCopySuccessful) {
 			copyAdvice = <div className="copy-pane-advice">
-				A link to <a href={this.props.annotatorLink}>{this.props.annotatorName}</a>'s annotation has been copied.
+				A link to <a href={this.props.annotatorLink}>{this.props.annotatorName}</a>{'\''}s annotation has been copied.
 			</div>;
 		} else {
 			copyAdvice = <div className="copy-pane-advice">
@@ -67,7 +79,8 @@ export default class CopyLinkPane extends React.Component {
 
 		return <div className="copy-pane" style={paneStyle}>
 			<div style={overlayStyle} onClick={() => this._dismiss()}/>
-			<input ref="linkField" defaultValue={this.props.link} />
+		  {/* TSX <input> is missing defaultValue attribute */}
+			{React.createElement('input', {ref: 'linkField', defaultValue: this.props.link})}
 			{copyAdvice}
 		</div>
 	}
@@ -77,4 +90,3 @@ export default class CopyLinkPane extends React.Component {
 		setTimeout(() => this.props.onDismiss(), 300);
 	}
 }
-

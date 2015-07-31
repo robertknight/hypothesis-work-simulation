@@ -1,4 +1,6 @@
-export default class Toolbar extends React.Component {
+import * as React from 'react';
+
+export default class Toolbar extends React.Component<{},{}> {
 	render() {
 		return <div className="topbar">
 		  <div className="inner">
@@ -21,5 +23,3 @@ export default class Toolbar extends React.Component {
 		</div>
 	}
 }
-
-

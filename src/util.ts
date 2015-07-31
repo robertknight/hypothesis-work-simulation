@@ -8,7 +8,8 @@ export const ONE_DAY = 24 * ONE_HOUR;
   * absolute date if the date is more than 24 hours ago
   */
 export function relativeDateString(date: Date | number) {
-	const age = Date.now() - date;
+	const age = Date.now() - (date as number);
+
 	if (age < ONE_MINUTE) {
 		return 'seconds ago';
 	} else if (age < ONE_HOUR) {
@@ -16,7 +17,6 @@ export function relativeDateString(date: Date | number) {
 	} else if (age < ONE_DAY) {
 		return `${Math.round(age / ONE_HOUR)} hours ago`;
 	} else {
-		return (new Date(date)).toDateString();
+		return (new Date(date as number)).toDateString();
 	}
 }
-

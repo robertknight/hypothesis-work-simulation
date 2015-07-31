@@ -13,6 +13,8 @@
     "chai": "^3.0.0",
     "mocha": "^2.2.5",
     "react": "^0.13.3",
+    "tsd": "^0.6.3",
+    "typescript": "^1.6.0-dev.20150731",
     "webpack": "^1.10.1"
   },
   "dependencies": {

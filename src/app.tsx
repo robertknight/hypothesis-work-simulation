@@ -1,10 +1,17 @@
-import 'es6-promises';
-import fetch from 'isomorphic-fetch';
+/// <reference path="../typings/tsd.d.ts" />
 
-import AnnotationList from './AnnotationList';
+import 'es6-promises';
+import fetch = require('isomorphic-fetch');
+import * as React from 'react';
+
+import {AnnotationList, HypothesisAnnotation} from './AnnotationList';
 import Toolbar from './Toolbar';
 
-class App extends React.Component {
+interface AppProps {
+		annotations: HypothesisAnnotation[]
+}
+
+class App extends React.Component<AppProps,{}> {
 	render() {
 		return <div>
 			<Toolbar />
